@@ -24,7 +24,8 @@ public class PigLatinTranslator
     StringBuilder result = new StringBuilder();
     StringBuilder buffer = new StringBuilder();
     for(char c : input.toCharArray()) {
-      if(c==' ') {
+      //if a Char is a non-
+      if(!Character.isLetterOrDigit(c)) {
         result.append(translateWord(buffer.toString()));
         buffer.delete(0,buffer.length());
         result.append(c);
@@ -34,6 +35,7 @@ public class PigLatinTranslator
     return result.toString();
   }
 
+  //below is the list of vowels we used
   private static boolean isConsonant(char input) {
     return "aeiouyAEIOUY".indexOf(input) < 0;
   }
@@ -44,7 +46,7 @@ public class PigLatinTranslator
 
     // Replace this code to correctly translate a single word.
     // Start here first!
-    String result = input;
+    String result;
     /* if (input.substring(0, 1).equals("a") || input.substring(0, 1).equals("e") || input.substring(0, 1).equals("i") || input.substring(0, 1).equals("o") || input.substring(0, 1).equals("u") || input.substring(0, 1).equals("y")) {
       result = input + "ay"
     } else {
@@ -54,17 +56,23 @@ public class PigLatinTranslator
     if (input.length() == 0) {
       return "";
     }
-    if (isConsonant(input.charAt(0))) {
-      int index = 0;
+    char firstChar;
+    if (isConsonant(firstChar = input.charAt(0))) {
+      int index = 1;
       StringBuilder consonants = new StringBuilder();
+      boolean isCapital = Character.isUpperCase(firstChar);
+      consonants.append(Character.toLowerCase(firstChar));
+
 
       while (index < input.length() && isConsonant(input.charAt(index))) {
         consonants.append(input.charAt(index++));
       }
-      result = result.substring(index);
+      char vowel = input.charAt(index);
+      vowel = isCapital ? Character.toUpperCase(vowel) : vowel;
+      result = vowel + input.substring(index + 1);
       result += consonants;
-    }
-  
+
+    } else result = input;
     result += "ay";
     System.out.println(result);
     return result;

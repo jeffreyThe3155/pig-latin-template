@@ -6,8 +6,17 @@ public class PigLatinTranslator
   {
     Book translatedBook = new Book();
 
+    String title = input.getTitle();
+    title = translate(title);
+    translatedBook.setTitle(title);
+
     // Add code here to populate translatedBook with a translation of the input book.
     // Curent do-nothing code will return an empty book.
+    
+    for (int i = 0; i < input.getLineCount(); i++) {
+      String line = input.getLine(i);
+      translatedBook.appendLine(translate(line));
+    }
 
     return translatedBook;
   }
@@ -75,7 +84,7 @@ public class PigLatinTranslator
 
     } else result = input;
     result += "ay";
-    System.out.println(result);
+    //System.out.println(result);
     return result;
   }
 

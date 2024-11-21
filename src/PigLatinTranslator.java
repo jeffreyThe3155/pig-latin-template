@@ -51,7 +51,9 @@ public class PigLatinTranslator
 
   private static String translateWord(String input)
   {
-    int numberOfWords = 0;
+    if (input.isEmpty()) {
+      return "";
+    }
     // System.out.println("translateWord: '" + input + "'");
 
     // Replace this code to correctly translate a single word.
@@ -63,28 +65,30 @@ public class PigLatinTranslator
       result = input
       while (result.substring(0, 1).equals())
     } */
-    if (input.length() == 0) {
-      return "";
-    }
-    char firstChar;
-    if (isConsonant(firstChar = input.charAt(0))) {
+    char firstChar = input.charAt(0);
+
+    if (isConsonant(firstChar)) {
       int index = 1;
       StringBuilder consonants = new StringBuilder();
       boolean isCapital = Character.isUpperCase(firstChar);
       consonants.append(Character.toLowerCase(firstChar));
 
-
       while (index < input.length() && isConsonant(input.charAt(index))) {
         consonants.append(input.charAt(index++));
       }
-      char vowel = input.charAt(index);
-      vowel = isCapital ? Character.toUpperCase(vowel) : vowel;
-      result = vowel + input.substring(index + 1);
-      result += consonants;
 
-    } else result = input;
-    result += "ay";
-    //System.out.println(result);
+      String remainingWord = input.substring(index);
+      if (index < input.length()) {
+        char vowel = remainingWord.charAt(0);
+        vowel = isCapital ? Character.toUpperCase(vowel) : Character.toLowerCase(vowel);
+        result = vowel + remainingWord.substring(1) + consonants + "ay";
+      } else {
+        result = input + "ay";
+      }
+    } else {
+      result = input + "ay";
+    }
+    //System.out.print(result);
     return result;
   }
 
@@ -93,3 +97,4 @@ public class PigLatinTranslator
   // private static String capitalizeFirstLetter(String input)
 
 }
+

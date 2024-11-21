@@ -21,7 +21,7 @@ public class App {
 
 
         // Run tests, comment out once they pass.
-        //TestSuite.run();
+        TestSuite.run();
 
         // Starter book
         Book input = new Book();
